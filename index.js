@@ -144,7 +144,7 @@ jQuery(async function() {
                 </div>
                 <div class="flex-container">
                     <input id="kobold_api_load_button" class="menu_button" type="submit" value="Load File" />
-                    <div id="kobold_api_set_template" title="Refresh model list" data-i18n="[title]Refresh model list" class="menu_button fa-lg fa-solid fa-repeat"></div>
+                    <input id="kobold_api_load_button" class="menu_button" type="button" value="Use .kccp as Template" />
                 </div>
                 <div class="flex-container flexFlowColumn">
                     <h4>.kccp Template (to load .gguf files)</h4>
