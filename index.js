@@ -63,6 +63,9 @@ async function onModelLoad(args, value){
     if (modelName.contains('.gguf').toLowerCase().indexOf(".gguf") >= 0)
         body.overrideconfig = extension_settings.koboldapi.template;
     
+    console.debug(body);
+    return;
+
     await fetch(`${extension_settings.koboldapi.url}/api/admin/reload_config`, {
         method: "POST",
         body: JSON.stringify(body),
