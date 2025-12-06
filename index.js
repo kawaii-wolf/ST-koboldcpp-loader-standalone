@@ -151,7 +151,7 @@ jQuery(async function() {
                     <input id="kobold_api_template_button" class="menu_button" type="button" value="Use .kccps as Template" />
                 </div>
                 <div class="flex-container flexFlowColumn">
-                    <h4>.kccp Template (for loading .gguf files)</h4>
+                    <h4>.kccps Template (for loading .gguf files)</h4>
                     <input id="kobold_api_template" class="text_pole textarea_compact" type="text" />
                     </div>
                 </div>
