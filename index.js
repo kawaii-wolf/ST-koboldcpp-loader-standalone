@@ -56,12 +56,16 @@ async function onModelLoad(args, value){
     saveSettingsDebounced();
 
     const modelName = value    ?? $('#kobold_api_model_list').val();
+
+    const body = {
+        filename: modelName,
+    };
+    if (modelName.contains('.gguf').toLowerCase().indexOf(".gguf") >= 0)
+        body.overrideconfig = extension_settings.koboldapi.template;
     
     await fetch(`${extension_settings.koboldapi.url}/api/admin/reload_config`, {
         method: "POST",
-        body: JSON.stringify({
-          filename: modelName,
-        }),
+        body: JSON.stringify(body),
         headers: {
           "Content-type": "application/json; charset=UTF-8"
         }
