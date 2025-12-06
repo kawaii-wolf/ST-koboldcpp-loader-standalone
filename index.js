@@ -24,11 +24,10 @@ function onKoboldURLChanged() {
     saveSettingsDebounced();
 }
 
-function onKoboldCModelChanged() {
-    extension_settings.koboldapi.model = $(this).val();
+function onKoboldTemplateChanged() {
+    extension_settings.koboldapi.template = $("#kobold_api_model_list").val();
     saveSettingsDebounced();
 }
-
 
 async function loadSettings()
 {
@@ -144,10 +143,10 @@ jQuery(async function() {
                 </div>
                 <div class="flex-container">
                     <input id="kobold_api_load_button" class="menu_button" type="submit" value="Load File" />
-                    <input id="kobold_api_load_button" class="menu_button" type="button" value="Use .kccp as Template" />
+                    <input id="kobold_api_template_button" class="menu_button" type="button" value="Use .kccp as Template" />
                 </div>
                 <div class="flex-container flexFlowColumn">
-                    <h4>.kccp Template (to load .gguf files)</h4>
+                    <h4>.kccp Template (for loading .gguf files)</h4>
                     <input id="kobold_api_template" class="text_pole textarea_compact" type="text" />
                     </div>
                 </div>
@@ -162,6 +161,9 @@ jQuery(async function() {
     $('#kobold_api_url').val(extension_settings.koboldapi.url).on('input',onKoboldURLChanged);
     $('#kobold_api_model_reload').on('click', fetchKoboldModels);
     $('#kobold_api_load_button').on('click', onModelLoad);
+    $('#kobold_api_template_button').on('click', onKoboldTemplateChanged);
+    $('kobold_api_template').val(extension_settings.koboldapi.template).on('input',onKoboldTemplateChanged);
+
 
     $('#kobold_api_model_list')
     .val(extension_settings.koboldapi.model)
