@@ -60,7 +60,7 @@ async function onModelLoad(args, value){
     const body = {
         filename: modelName,
     };
-    if (modelName.contains('.gguf').toLowerCase().indexOf(".gguf") >= 0)
+    if (modelName.toLowerCase().indexOf(".gguf") >= 0)
         body.overrideconfig = extension_settings.koboldapi.template;
     
     console.debug(body);
