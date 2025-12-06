@@ -30,9 +30,10 @@ function onKoboldTemplateChanged() {
     saveSettingsDebounced();
 }
 
-function slashSetTemplate(template) {
+function slashSetTemplate(template, val) {
     console.log("Doing a template");
     console.debug(template);
+    console.debug(val);
     extension_settings.koboldapi.template = template;
     $('#kobold_api_template').val(template);
     saveSettingsDebounced();
