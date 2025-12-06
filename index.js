@@ -26,6 +26,7 @@ function onKoboldURLChanged() {
 
 function onKoboldTemplateChanged() {
     extension_settings.koboldapi.template = $("#kobold_api_model_list").val();
+    $('#kobold_api_template').val(extension_settings.koboldapi.template);
     saveSettingsDebounced();
 }
 
@@ -162,7 +163,7 @@ jQuery(async function() {
     $('#kobold_api_model_reload').on('click', fetchKoboldModels);
     $('#kobold_api_load_button').on('click', onModelLoad);
     $('#kobold_api_template_button').on('click', onKoboldTemplateChanged);
-    $('kobold_api_template').val(extension_settings.koboldapi.template).on('input',onKoboldTemplateChanged);
+    $('#kobold_api_template').val(extension_settings.koboldapi.template).on('input',onKoboldTemplateChanged);
 
 
     $('#kobold_api_model_list')
