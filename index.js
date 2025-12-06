@@ -62,9 +62,6 @@ async function onModelLoad(args, value){
     };
     if (modelName.toLowerCase().indexOf(".gguf") >= 0)
         body.overrideconfig = extension_settings.koboldapi.template;
-    
-    console.debug(body);
-    return;
 
     await fetch(`${extension_settings.koboldapi.url}/api/admin/reload_config`, {
         method: "POST",
@@ -151,7 +148,7 @@ jQuery(async function() {
                 </div>
                 <div class="flex-container">
                     <input id="kobold_api_load_button" class="menu_button" type="submit" value="Load File" />
-                    <input id="kobold_api_template_button" class="menu_button" type="button" value="Use .kccp as Template" />
+                    <input id="kobold_api_template_button" class="menu_button" type="button" value="Use .kccps as Template" />
                 </div>
                 <div class="flex-container flexFlowColumn">
                     <h4>.kccp Template (for loading .gguf files)</h4>
