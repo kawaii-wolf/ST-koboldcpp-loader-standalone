@@ -30,6 +30,12 @@ function onKoboldTemplateChanged() {
     saveSettingsDebounced();
 }
 
+function slashSetTemplate(template) {
+    extension_settings.koboldapi.template = template;
+    $('#kobold_api_template').val(template);
+    saveSettingsDebounced();
+}
+
 async function loadSettings()
 {
     if (! extension_settings.koboldapi )
@@ -77,7 +83,7 @@ async function onModelLoad(args, value){
             reconnect_attempts--;
             console.log("Try to reconnect: " + reconnect_attempts);
             $('#api_button_textgenerationwebui').click();
-            await sleep(1000);
+            await sleep(5000);
             if (reconnect_attempts > 0)
                 $('.api_loading').click();
         }
@@ -90,6 +96,19 @@ function onStatusChange(e)
     if ( e != "no_connection")
         reconnect_attempts = 0;
 }
+
+SlashCommandParser.addCommandObject(SlashCommand.fromProps({
+    name: "kcpp-template",
+    callback: slashSetTemplate,
+    helpString: "Set a .kcpps model template to load .gguf files directly",
+    unnamedArgumentList: [
+        SlashCommandArgument.fromProps({
+            description: ".kcpps config to use for template",
+            typeList: [ARGUMENT_TYPE.STRING],
+            isRequired: true,
+        }),
+    ]
+}));
 
 SlashCommandParser.addCommandObject(SlashCommand.fromProps({
     name: "kcpp-load",
