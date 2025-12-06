@@ -31,6 +31,7 @@ function onKoboldTemplateChanged() {
 }
 
 function slashSetTemplate(template) {
+    console.log("Doing a template");
     console.debug(template);
     extension_settings.koboldapi.template = template;
     $('#kobold_api_template').val(template);
