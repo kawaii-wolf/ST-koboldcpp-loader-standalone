@@ -57,6 +57,22 @@ async function fetchKoboldModels()
         }).catch(error => console.log("KoboldCCP Loader List Failed: " + error.message));
 }
 
+async function listKoboldModels()
+{
+    let kcppslist = [];
+    const response = await fetch(`${extension_settings.koboldapi.url}/api/admin/list_options`)
+    .then((response) => response.json())
+    .then((list) => {
+        kcppslist=list;
+    }).catch(error => console.log("KoboldCCP Loader List Failed: " + error.message));
+    return kcppslist;
+}
+
+async function curUnloadModel() {
+    const kcpps_cfg = extension_settings.koboldapi.unload;
+    return kcpps_cfg;
+}
+
 async function onModelLoad(args, value){
     extension_settings.koboldapi.model = $('#kobold_api_model_list').val();
     saveSettingsDebounced();
@@ -96,6 +112,14 @@ function onStatusChange(e)
     if ( e != "no_connection")
         reconnect_attempts = 0;
 }
+
+SlashCommandParser.addCommandObject(SlashCommand.fromProps({
+    name: "kcpp-list",
+    callback: listKoboldModels,
+    helpString: "Output a list of currently available kcpps config files.",
+    returns: "List of kcpps config files",
+
+}));
 
 SlashCommandParser.addCommandObject(SlashCommand.fromProps({
     name: "kcpp-template",
@@ -187,7 +211,6 @@ jQuery(async function() {
     $('#kobold_api_load_button').on('click', onModelLoad);
     $('#kobold_api_template_button').on('click', onKoboldTemplateChanged);
     $('#kobold_api_template').val(extension_settings.koboldapi.template).on('input',onKoboldTemplateChanged);
-
 
     $('#kobold_api_model_list')
     .val(extension_settings.koboldapi.model)
