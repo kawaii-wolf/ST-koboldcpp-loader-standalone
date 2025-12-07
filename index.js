@@ -65,12 +65,7 @@ async function listKoboldModels()
     .then((list) => {
         kcppslist=list;
     }).catch(error => console.log("KoboldCCP Loader List Failed: " + error.message));
-    return kcppslist;
-}
-
-async function curUnloadModel() {
-    const kcpps_cfg = extension_settings.koboldapi.unload;
-    return kcpps_cfg;
+    return JSON.stringify(kcppslist);
 }
 
 async function onModelLoad(args, value){
@@ -118,7 +113,6 @@ SlashCommandParser.addCommandObject(SlashCommand.fromProps({
     callback: listKoboldModels,
     helpString: "Output a list of currently available kcpps config files.",
     returns: "List of kcpps config files",
-
 }));
 
 SlashCommandParser.addCommandObject(SlashCommand.fromProps({
