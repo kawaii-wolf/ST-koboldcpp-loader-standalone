@@ -50,22 +50,12 @@ async function loadSettings()
 
 async function fetchKoboldModels()
 {
-    const response = await fetch(`${extension_settings.koboldapi.url}/api/admin/list_options`)
+    await fetch(`${extension_settings.koboldapi.url}/api/admin/list_options`)
         .then((response) => response.json())
         .then((list) => {
             kobold_models=list;
         }).catch(error => console.log("KoboldCCP Loader List Failed: " + error.message));
-}
-
-async function listKoboldModels()
-{
-    let kcppslist = [];
-    const response = await fetch(`${extension_settings.koboldapi.url}/api/admin/list_options`)
-    .then((response) => response.json())
-    .then((list) => {
-        kcppslist=list;
-    }).catch(error => console.log("KoboldCCP Loader List Failed: " + error.message));
-    return JSON.stringify(kcppslist);
+    return JSON.stringify(kobold_models);
 }
 
 async function onModelLoad(args, value){
@@ -102,6 +92,10 @@ async function onModelLoad(args, value){
     .catch(error => console.log("KoboldCCP Switch API Load Failed: " + error.message));
 }
 
+async function unloadModel() {
+    onModelLoad(null, "unload_model");
+}
+
 function onStatusChange(e)
 {
     if ( e != "no_connection")
@@ -110,9 +104,15 @@ function onStatusChange(e)
 
 SlashCommandParser.addCommandObject(SlashCommand.fromProps({
     name: "kcpp-list",
-    callback: listKoboldModels,
+    callback: fetchKoboldModels,
     helpString: "Output a list of currently available kcpps config files.",
     returns: "List of kcpps config files",
+}));
+
+SlashCommandParser.addCommandObject(SlashCommand.fromProps({
+    name: "kcpp-unload",
+    callback: unloadModel,
+    helpString: "Unload the current model.",
 }));
 
 SlashCommandParser.addCommandObject(SlashCommand.fromProps({
